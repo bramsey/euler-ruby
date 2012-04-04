@@ -1,8 +1,9 @@
 #!/Users/spamram/.rvm/rubies/ruby-1.9.2-p180/bin/ruby
 
 # Goal:
-#  Find the prime below one million that can be written as the sum of the
-#  most consecutive primes.
+#  Find the smallest prime which, by replacing part of the number 
+#  (not necessarily adjacent digits) with the same digit, is part 
+#  of an eight prime value family.
 
 @primes = []
 @prime_cache = [false, false]
@@ -41,12 +42,10 @@ def prime_perm_count(num, digits)
       count += 1 if num.length == num.to_i.to_s.length
     end
   end
-  #puts "#{num}: #{count} | #{digits}"
   count
 end
 
 def max_count_for_perms(num, num_digits)
-  #puts num_digits
   digit_combs = (0...num.length).to_a.combination(num_digits).to_a
   max = 1
   digit_combs.each do |digits|
@@ -57,12 +56,7 @@ def max_count_for_perms(num, num_digits)
     end
   end
   return max
-  
-end
-
-#puts max_count_for_perms("120383", 3)
-#puts prime_perm_count("56003", [2, 3])    
-
+end 
 
 def set?(p)
   str = p.to_s
@@ -72,14 +66,10 @@ def set?(p)
     return true if count == 8
   end
   return false
-  
 end
 
-#puts set?(120381)
 def find_prime
-  @primes.each do |prime|
-    return prime if set?(prime)
-  end
+  @primes.each {|prime| return prime if set?(prime) }
   return 0
 end
 
